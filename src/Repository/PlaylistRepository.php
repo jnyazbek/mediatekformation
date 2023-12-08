@@ -16,6 +16,22 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class PlaylistRepository extends ServiceEntityRepository
 {
+    /**
+     * accès aux formations de la playlist
+     * @var string
+     */
+    private $pformation = 'p.formations';
+    /**
+     * accès a l'id de la playlist
+     * @var string
+     */
+    private $pid = 'p.id';
+    /**
+     * accès au nom de la playlist
+     * @var string
+     */
+    private $pname = 'p.name';
+    
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Playlist::class);
@@ -47,9 +63,9 @@ class PlaylistRepository extends ServiceEntityRepository
      */
     public function findAllOrderByName($ordre): array{
         return $this->createQueryBuilder('p')
-                ->leftjoin('p.formations', 'f')
-                ->groupBy('p.id')
-                ->orderBy('p.name', $ordre)
+                ->leftjoin($this->pformation, 'f')
+                ->groupBy($this->pid)
+                ->orderBy($this->pname, $ordre)
                 ->getQuery()
                 ->getResult();       
     } 
@@ -68,21 +84,21 @@ class PlaylistRepository extends ServiceEntityRepository
         }    
         if($table==""){      
             return $this->createQueryBuilder('p')
-                    ->leftjoin('p.formations', 'f')
+                    ->leftjoin($this->pformation, 'f')
                     ->where('p.'.$champ.' LIKE :valeur')
                     ->setParameter('valeur', '%'.$valeur.'%')
-                    ->groupBy('p.id')
-                    ->orderBy('p.name', 'ASC')
+                    ->groupBy($this->pid)
+                    ->orderBy($this->pname, 'ASC')
                     ->getQuery()
                     ->getResult();              
         }else{   
             return $this->createQueryBuilder('p')
-                    ->leftjoin('p.formations', 'f')
+                    ->leftjoin($this->pformation, 'f')
                     ->leftjoin('f.categories', 'c')
                     ->where('c.'.$champ.' LIKE :valeur')
                     ->setParameter('valeur', '%'.$valeur.'%')
-                    ->groupBy('p.id')
-                    ->orderBy('p.name', 'ASC')
+                    ->groupBy($this->pid)
+                    ->orderBy($this->pname, 'ASC')
                     ->getQuery()
                     ->getResult();              
             
