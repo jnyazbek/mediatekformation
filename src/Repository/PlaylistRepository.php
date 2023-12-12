@@ -105,6 +105,19 @@ class PlaylistRepository extends ServiceEntityRepository
         }           
     }    
 
+    public function getCountFormations(): int
+    {
+        return $this->formations->count();
+    }   
+    
+    public function findAllOrderedByFormationCount($ordre): array {
+    return $this->createQueryBuilder('p')
+        ->leftJoin('p.formations', 'f')
+        ->groupBy('p.id')
+        ->orderBy('COUNT(f.id)', $ordre)
+        ->getQuery()
+        ->getResult();
+}
 
     
 }

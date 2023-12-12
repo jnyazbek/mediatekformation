@@ -54,9 +54,13 @@ class PlaylistsController extends AbstractController {
     public function index(): Response{
         $playlists = $this->playlistRepository->findAllOrderByName('ASC');
         $categories = $this->categorieRepository->findAll();
+        foreach($playlists as $playlist){
+            $playlist->countFormation = $playlist->getCountFormations();
+        }
         return $this->render($this->pagePlaylist, [
             'playlists' => $playlists,
-            'categories' => $categories            
+            'categories' => $categories
+            
         ]);
     }
 
@@ -70,6 +74,9 @@ class PlaylistsController extends AbstractController {
         switch($champ){
             case "name":
                 $playlists = $this->playlistRepository->findAllOrderByName($ordre);
+                break;
+            case "countFormations":
+                $playlists = $this->playlistRepository->findAllOrderedByFormationCount($ordre);
                 break;
             default: 
                 $playlists = $this->playlistRepository->findAll();
@@ -108,13 +115,19 @@ class PlaylistsController extends AbstractController {
      */
     public function showOne($id): Response{
         $playlist = $this->playlistRepository->find($id);
+        $playlists[0] = $playlist;
         $playlistCategories = $this->categorieRepository->findAllForOnePlaylist($id);
         $playlistFormations = $this->formationRepository->findAllForOnePlaylist($id);
+        $countFormations = count($playlistFormations);
         return $this->render($this->pagePlaylist, [
+            'playlists'=> $playlists,
             'playlist' => $playlist,
             'playlistcategories' => $playlistCategories,
-            'playlistformations' => $playlistFormations
+            'playlistformations' => $playlistFormations,
+            'categories' => $playlistCategories,
+            'countFormations' => $countFormations
         ]);        
     }       
+    
     
 }

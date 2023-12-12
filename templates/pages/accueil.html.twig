@@ -14,7 +14,8 @@
     <p>
         Voici les <strong>deux dernières formations</strong> ajoutées au catalogue :
         <table class="table">
-            <tr>
+          <thead>
+              <tr>
                 {% for formation in formations %}
                     <td>
                         <div class="row">
@@ -40,8 +41,8 @@
                             </div>    
                         </div>                    
                 {% endfor %}    
-            </tr>
-
+              </tr>
+          </thead>
         </table>        
     </p>
 {% endblock %}

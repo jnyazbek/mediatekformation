@@ -110,12 +110,12 @@ class Formation
 
     public function getMiniature(): ?string
     {
-        return self::cheminImage.$this->videoId."/default.jpg";
+        return self::CHEMINIMAGE.$this->videoId."/default.jpg";
     }
 
     public function getPicture(): ?string
     {
-        return self::cheminImage.$this->videoId."/hqdefault.jpg";
+        return self::CHEMINIMAGE.$this->videoId."/hqdefault.jpg";
     }
 
     public function getVideoId(): ?string

@@ -32,6 +32,11 @@
                         </select>                    
                     </form>            
                 </th>
+                <th class="text-center align-top" scope="col">Nombre de Formations
+                     <a href="{{ path('playlists.sort', {champ:'countFormations', ordre:'ASC'}) }}" class="btn btn-info btn-sm active" role="button" aria-pressed="true"><</a>
+                    <a href="{{ path('playlists.sort', {champ:'countFormations', ordre:'DESC'}) }}" class="btn btn-info btn-sm active" role="button" aria-pressed="true">></a>
+                </th>
+
                 <th class="text-center align-top" scope="col">
                     &nbsp;
                 </th>				
@@ -54,7 +59,8 @@
                                     &nbsp;{{ categories[c] }}                                  
                                 {% endfor %}
                             {% endif %}
-                        </td>            					
+                        </td>
+                        <td class="text-center">{{ playlists[k].countFormations }}</td>                        
                         <td class="text-center">
                             <a href="{{ path('playlists.showone', {id:playlists[k].id}) }}" class="btn btn-secondary">Voir détail</a>
                         </td> 					
