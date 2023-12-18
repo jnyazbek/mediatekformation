@@ -35,9 +35,9 @@ class PlaylistsController extends AbstractController {
     private $categorieRepository;  
     /**
      * 
-     * @var string
+     * @const string
      */
-    private $pagePlaylist = "pages/playlists.html.twig";
+    const PAGE_PLAYLISTS = "pages/playlists.html.twig";
     
     function __construct(PlaylistRepository $playlistRepository, 
             CategorieRepository $categorieRepository,
@@ -57,7 +57,7 @@ class PlaylistsController extends AbstractController {
         foreach($playlists as $playlist){
             $playlist->countFormation = $playlist->getCountFormations();
         }
-        return $this->render($this->pagePlaylist, [
+        return $this->render(self::PAGE_PLAYLISTS, [
             'playlists' => $playlists,
             'categories' => $categories
             
@@ -83,7 +83,7 @@ class PlaylistsController extends AbstractController {
                 break;
         }
         $categories = $this->categorieRepository->findAll();
-        return $this->render($this->pagePlaylist, [
+        return $this->render(self::PAGE_PLAYLISTS, [
             'playlists' => $playlists,
             'categories' => $categories            
         ]);
@@ -100,7 +100,7 @@ class PlaylistsController extends AbstractController {
         $valeur = $request->get("recherche");
         $playlists = $this->playlistRepository->findByContainValue($champ, $valeur, $table);
         $categories = $this->categorieRepository->findAll();
-        return $this->render($this->pagePlaylist, [
+        return $this->render(self::PAGE_PLAYLISTS, [
             'playlists' => $playlists,
             'categories' => $categories,            
             'valeur' => $valeur,
@@ -119,7 +119,7 @@ class PlaylistsController extends AbstractController {
         $playlistCategories = $this->categorieRepository->findAllForOnePlaylist($id);
         $playlistFormations = $this->formationRepository->findAllForOnePlaylist($id);
         $countFormations = count($playlistFormations);
-        return $this->render($this->pagePlaylist, [
+        return $this->render(self::PAGE_PLAYLISTS, [
             'playlists'=> $playlists,
             'playlist' => $playlist,
             'playlistcategories' => $playlistCategories,

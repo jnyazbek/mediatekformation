@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h2>Modifier Formation</h2>
+    {{ form_start(form,{'action' : path('formationBack_edit',{'id': formation.id}), 'method' : 'POST'}) }}
+       {{ form(form) }} 
+        {{ form_errors(form) }}
+    {{ form_end(form) }}
+{% endblock %}

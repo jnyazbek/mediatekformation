@@ -18,19 +18,19 @@ class PlaylistRepository extends ServiceEntityRepository
 {
     /**
      * accès aux formations de la playlist
-     * @var string
+     * @const string
      */
-    private $pformation = 'p.formations';
+    const PFORMATION = 'p.formations';
     /**
      * accès a l'id de la playlist
      * @var string
      */
-    private $pid = 'p.id';
+    const PID = 'p.id';
     /**
      * accès au nom de la playlist
      * @var string
      */
-    private $pname = 'p.name';
+    const PNAME = 'p.name';
     
     public function __construct(ManagerRegistry $registry)
     {
@@ -63,9 +63,9 @@ class PlaylistRepository extends ServiceEntityRepository
      */
     public function findAllOrderByName($ordre): array{
         return $this->createQueryBuilder('p')
-                ->leftjoin($this->pformation, 'f')
-                ->groupBy($this->pid)
-                ->orderBy($this->pname, $ordre)
+                ->leftjoin(self::PFORMATION, 'f')
+                ->groupBy(self::PID)
+                ->orderBy(self::PNAME, $ordre)
                 ->getQuery()
                 ->getResult();       
     } 
@@ -84,21 +84,21 @@ class PlaylistRepository extends ServiceEntityRepository
         }    
         if($table==""){      
             return $this->createQueryBuilder('p')
-                    ->leftjoin($this->pformation, 'f')
+                    ->leftjoin(self::PFORMATION, 'f')
                     ->where('p.'.$champ.' LIKE :valeur')
                     ->setParameter('valeur', '%'.$valeur.'%')
-                    ->groupBy($this->pid)
-                    ->orderBy($this->pname, 'ASC')
+                    ->groupBy(self::PID)
+                    ->orderBy(self::PNAME, 'ASC')
                     ->getQuery()
                     ->getResult();              
         }else{   
             return $this->createQueryBuilder('p')
-                    ->leftjoin($this->pformation, 'f')
+                    ->leftjoin(self::PFORMATION, 'f')
                     ->leftjoin('f.categories', 'c')
                     ->where('c.'.$champ.' LIKE :valeur')
                     ->setParameter('valeur', '%'.$valeur.'%')
-                    ->groupBy($this->pid)
-                    ->orderBy($this->pname, 'ASC')
+                    ->groupBy(self::PID)
+                    ->orderBy(self::PNAME, 'ASC')
                     ->getQuery()
                     ->getResult();              
             
@@ -112,8 +112,8 @@ class PlaylistRepository extends ServiceEntityRepository
     
     public function findAllOrderedByFormationCount($ordre): array {
     return $this->createQueryBuilder('p')
-        ->leftJoin('p.formations', 'f')
-        ->groupBy('p.id')
+        ->leftJoin(self::PFORMATION, 'f')
+        ->groupBy(self::PID)
         ->orderBy('COUNT(f.id)', $ordre)
         ->getQuery()
         ->getResult();

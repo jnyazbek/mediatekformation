@@ -28,9 +28,9 @@ class FormationsController extends AbstractController {
     private $categorieRepository;
     /**
      * 
-     * @var string
+     * @const string
      */
-    private $pageFormation = "pages/formations.html.twig";
+    const PAGE_FORMATION = "pages/formations.html.twig";
     
     function __construct(FormationRepository $formationRepository, CategorieRepository $categorieRepository) {
         $this->formationRepository = $formationRepository;
@@ -44,7 +44,7 @@ class FormationsController extends AbstractController {
     public function index(): Response{
         $formations = $this->formationRepository->findAll();
         $categories = $this->categorieRepository->findAll();
-        return $this->render($this->pageFormation, [
+        return $this->render(self::PAGE_FORMATION, [
             'formations' => $formations,
             'categories' => $categories
         ]);
@@ -60,7 +60,7 @@ class FormationsController extends AbstractController {
     public function sort($champ, $ordre, $table=""): Response{
         $formations = $this->formationRepository->findAllOrderBy($champ, $ordre, $table);
         $categories = $this->categorieRepository->findAll();
-        return $this->render($this->pageFormation, [
+        return $this->render(self::PAGE_FORMATION, [
             'formations' => $formations,
             'categories' => $categories
         ]);
@@ -77,7 +77,7 @@ class FormationsController extends AbstractController {
         $valeur = $request->get("recherche");
         $formations = $this->formationRepository->findByContainValue($champ, $valeur, $table);
         $categories = $this->categorieRepository->findAll();
-        return $this->render($this->pageFormation, [
+        return $this->render(self::PAGE_FORMATION, [
             'formations' => $formations,
             'categories' => $categories,
             'valeur' => $valeur,
@@ -92,8 +92,10 @@ class FormationsController extends AbstractController {
      */
     public function showOne($id): Response{
         $formation = $this->formationRepository->find($id);
-        return $this->render($this->pageFormation, [
-            'formation' => $formation
+        $formationCategories = $this->categorieRepository->findAllForOnePlaylist($id);
+        return $this->render(self::PAGE_FORMATION, [
+            'formations' => $formation,
+            'catégories' => $formationCategories
         ]);        
     }   
     

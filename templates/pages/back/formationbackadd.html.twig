@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h2>Ajouter Formation</h2>
+    
+    {{ form_start(form,{'action' : path('formationBack_add'), 'method' : 'POST'}) }}
+        {{ form(form) }} 
+        {{ form_errors(form) }}
+    {{ form_end(form) }}
+{% endblock %}
+{# empty Twig template #}

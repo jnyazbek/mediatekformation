@@ -1,3 +1,6 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+#formation_delete : 
+#    path: /formationsback/{id}
+#    controller : App\Controller\FormationsBackController::deleteOne
