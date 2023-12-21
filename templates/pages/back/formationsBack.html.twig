@@ -111,7 +111,7 @@
                     </td>
                     <td class ="text-center">
                          <button onclick="if(confirm('Êtes-vous sûr de vouloir supprimer cette formation ?')) {
-                              boutonwindow.location.href = '{{ path('formationBack_delete', {id:formation.id}) }}'; }" class="btn btn-danger btn-sm">Supprimer</button>
+                              window.location.href = '{{ path('formationBack_delete', {id:formation.id}) }}'; }" class="btn btn-danger btn-sm">Supprimer</button>
                           <a href="{{ path('formationBack_edit', {id:formation.id}) }}" class="btn btn-primary btn-sm">Modifier</a>
                     </td>
                 </tr>

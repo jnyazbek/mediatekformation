@@ -1,0 +1,40 @@
+{% extends "baseback.html.twig" %}
+
+{% block body %}
+    <h2>Gestion des Catégories</h2>
+
+    <!-- Formulaire pour ajouter une nouvelle catégorie -->
+    {{ form_start(form,{'action' : path('categoriesback.add'), 'method' : 'POST'}) }}
+        {{ form(form) }}
+    {{ form_end(form) }}
+
+    <hr>
+
+    <!-- Liste des catégories avec les formations associées -->
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nom de la Catégorie</th>
+                <th>Formations Associées</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for categorie in categories %}
+                <tr>
+                    <td>{{ categorie.name }}</td>
+                    <td>
+                        {% for formation in categorie.formations %}
+                            {{ formation.title }}{% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        <!-- Bouton de suppression conditionnelle -->
+                        <button onclick="if(confirm('Êtes-vous sûr de vouloir supprimer cette catégorie ?') && {{ categorie.formations|length == 0 }}) { 
+                            window.location.href = '{{ path('categoriesback.delete', {id:categorie.id}) }}'; }" class="btn btn-danger btn-sm">Supprimer</button>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
