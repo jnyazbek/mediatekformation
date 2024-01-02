@@ -116,10 +116,17 @@ class PlaylistsController extends AbstractController {
     public function showOne($id): Response{
         $playlist = $this->playlistRepository->find($id);
         $playlists[0] = $playlist;
-        $playlistCategories = $this->categorieRepository->findAllForOnePlaylist($id);
-        $playlistFormations = $this->formationRepository->findAllForOnePlaylist($id);
+        $playlistFormations = $playlist->getFormations();
         $countFormations = count($playlistFormations);
-        return $this->render(self::PAGE_PLAYLISTS, [
+        $playlistCategories = [];
+        foreach ($playlistFormations as $formation) {
+            foreach ($formation->getCategories() as $category) { 
+                if (!in_array($category, $playlistCategories)) {
+                    $playlistCategories[] = $category;
+                }
+            }
+        }
+        return $this->render('pages/playlist.html.twig', [
             'playlists'=> $playlists,
             'playlist' => $playlist,
             'playlistcategories' => $playlistCategories,

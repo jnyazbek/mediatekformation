@@ -95,11 +95,12 @@ class FormationsBackController extends AbstractController {
      * @return Response
      */
     public function showOne($id): Response{
-        $formation = $this->formationRepository->find($id);
-        $formationCategories = $this->categorieRepository->findAllForOnePlaylist($id);
-        return $this->render(self::PAGEFORMATIONSBACK, [
+         $formation = $this->formationRepository->find($id);
+        $formationCategories = $formation->getCategories();
+        return $this->render('pages/back/formationback.html.twig', [
             'formations' => $formation,
-            'categories' => $formationCategories   
+            'categories' => $formationCategories,
+            'formation' => $formation
         ]);        
     }   
     
