@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpdocumentor>
+    <title>MediatekFormation</title>
+    <files>
+        <directory>src</directory>
+        <ignore>vendor/*</ignore>
+    </files>
+    <transformer>
+        <target>/Applications/XAMPP/xamppfiles/htdocs/mediatekformation/Documentation</target>
+    </transformer>
+    <transformations>
+        <template name="clean"/>
+    </transformations>
+</phpdocumentor>

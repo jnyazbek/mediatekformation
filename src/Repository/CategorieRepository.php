@@ -40,7 +40,11 @@ class CategorieRepository extends ServiceEntityRepository
     }
     
     
-    
+   /**
+    * Cherche une catégorie dans la bdd à partir de son nom
+    * @param type $name
+    * @return Categorie|null
+    */
    public function findOneByName($name): ?Categorie {
     return $this->createQueryBuilder('c')
                 ->where('c.name = :name')

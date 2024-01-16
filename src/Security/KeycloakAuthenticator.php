@@ -93,12 +93,24 @@ class KeycloakAuthenticator extends OAuth2Authenticator implements Authenticatio
                 })
         );
     }
-
+    
+    /**
+     * Appelée dans le cas d'un echec d'authentification
+     * @param Request $request
+     * @param AuthenticationException $exception
+     * @return Response|null
+     */
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response {  
         $message = strtr($exception->getMessageKey(), $exception->getMessageData());
         return new Response($message, Response::HTTP_FORBIDDEN);
     }
-
+    /**
+     * Appelée en cas de succès d'authentification
+     * @param Request $request
+     * @param TokenInterface $token
+     * @param string $firewallName
+     * @return Response|null
+     */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response {
         $targetUrl = $this->router->generate('formationsBack');
         return new RedirectResponse($targetUrl);

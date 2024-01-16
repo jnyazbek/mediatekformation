@@ -104,12 +104,19 @@ class PlaylistRepository extends ServiceEntityRepository
             
         }           
     }    
-
+    /**
+     * Retourne le nombre de formation de la p^^aylist
+     * @return int
+     */
     public function getCountFormations(): int
     {
         return $this->formations->count();
     }   
-    
+    /**
+     * Retourne toutes les playlist ordonée par nombre de formations
+     * @param type $ordre
+     * @return array
+     */
     public function findAllOrderedByFormationCount($ordre): array {
     return $this->createQueryBuilder('p')
         ->leftJoin(self::PFORMATION, 'f')
@@ -119,5 +126,7 @@ class PlaylistRepository extends ServiceEntityRepository
         ->getResult();
 }
 
-    
+    public function findAllForOnePlaylist($id){
+        
+    }
 }
