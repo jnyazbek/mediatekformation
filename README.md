@@ -72,6 +72,10 @@ id : clé primaire
 id_formation, id_categorie : clé primaire
 id_formation : clé étrangère en ref. à id de formation
 id_categorie : clé étrangère en ref. à id de categorie</code>
+### Fonctionnalitées ajoutées
+Page de connexion  pour acceder aux fonctionnalitées admin suivantes : 
+Ajouter modifier et supprimer des vidéos des playlists et des catégories.
+
 
 Remarques : 
 Les clés primaires des entités sont en auto-incrémentation.<br>
@@ -83,3 +87,4 @@ Le chemin des images (des 2 tailles) n'est pas mémorisé dans la BDD car il peu
 - Ouvrir une fenêtre de commandes en mode admin, se positionner dans le dossier du projet et taper "composer install" pour reconstituer le dossier vendor.<br>
 - Récupérer le fichier mediatekformation.sql en racine du projet et l'utiliser pour créer la BDD MySQL "mediatekformation" en root sans pwd (si vous voulez mettre un login/pwd d'accès, il faut le préciser dans le fichier ".env" en racine du projet).<br>
 - De préférence, ouvrir l'application dans un IDE professionnel. L'adresse pour la lancer est : http://localhost/mediatekformation/public/index.php<br>
+### Lien de test : https://mediatekformation.xyz/public/index.php
